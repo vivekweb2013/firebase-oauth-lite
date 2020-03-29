@@ -37,7 +37,7 @@ export default class Auth {
 
     addListener(callback) {
         this.listeners.push(callback);
-        if(!this.user) callback(null);
+        if (!this.user) callback(null);
         return () => (this.listeners = this.listeners.filter(fn => fn !== callback));
     }
 
@@ -60,7 +60,7 @@ export default class Auth {
                 grant_type: 'refresh_token',
                 refresh_token: this.user.tokenDetails.refreshToken
             }).then((resp) => {
-                const { idToken: id_token, refreshToken: refresh_token, expiresIn: expires_in } = resp;
+                const { id_token: idToken, refresh_token: refreshToken, expires_in: expiresIn } = resp;
                 this.persistUser({
                     ...this.user,
                     tokenDetails: { idToken, refreshToken, expiresIn: this.getTokenTimeout(expiresIn) }
