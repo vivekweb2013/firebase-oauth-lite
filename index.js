@@ -144,6 +144,18 @@ export default class Auth {
         });
     }
 
+    async authorizedRequest(req, options) {
+        const request = req instanceof Request ? req : new Request(req, options);
+
+        if (this.user) {
+            const { idToken } = this.user.tokenDetails;
+            await this.refreshToken();
+            request.headers.set('Authorization', `Bearer ${idToken}`);
+        }
+
+        return fetch(request);
+    }
+
     getTokenTimeout(duration) {
         return Date.now() + duration * 1000;
     }
