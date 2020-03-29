@@ -1,0 +1,19 @@
+{
+  "name": "firebase-oauth-lite",
+  "version": "1.0.0",
+  "description": "Firebase OAuth Lite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vivekweb2013/firebase-oauth-lite.git"
+  },
+  "author": "Vivek <vivekweb2013@gmail.com> (http://wirehall.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vivekweb2013/firebase-oauth-lite/issues"
+  },
+  "homepage": "https://github.com/vivekweb2013/firebase-oauth-lite#readme"
+}
