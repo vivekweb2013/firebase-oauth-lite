@@ -53,18 +53,17 @@ export default class Auth {
 
     async refreshToken() {
         if (!this.user || !this.user.tokenDetails || (Date.now() < this.user.tokenDetails.expiresIn)) return;
-        if (this.refreshTokenRequest) return await this.refreshTokenRequest;
 
         try {
-            this.refreshTokenRequest = this.request('token', {
+            const response = await this.request('token', {
                 grant_type: 'refresh_token',
                 refresh_token: this.user.tokenDetails.refreshToken
-            }).then((resp) => {
-                const { id_token: idToken, refresh_token: refreshToken, expires_in: expiresIn } = resp;
-                this.persistUser({
-                    ...this.user,
-                    tokenDetails: { idToken, refreshToken, expiresIn: this.getTokenTimeout(expiresIn) }
-                });
+            });
+            const { id_token: idToken, refresh_token: refreshToken, expires_in: expiresIn } = response;
+
+            this.persistUser({
+                ...this.user,
+                tokenDetails: { idToken, refreshToken, expiresIn: this.getTokenTimeout(expiresIn) }
             });
         } catch (error) {
             this.refreshTokenRequest = null;
